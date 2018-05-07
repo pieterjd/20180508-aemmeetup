@@ -63,6 +63,31 @@
                 </svg>
             </p>
         </section>
+        <section>
+            <pre>
+                <code class="hljs" data-trim contenteditable>
+CompositeCommand cc = new CompositeCommand();
+//Enable crx/de
+EnableCrxCommand ecc = new EnableCrxCommand();
+cc.add(ecc);
+BulkPackageInstallCommand bpic = new BulkPackageInstallCommand();
+bpic.addPackage("D:\\packages_to_install\\acs-aem-commons-content-3.13.0-min.zip")
+.addPackage("D:\\packages_to_install\\acs-aem-tools-content-0.0.50-min.zip")
+.addPackage("D:\\packages_to_install\\AEM-6.3-Service-Pack-1-6.3.1.zip")
+.addPackage("D:\\packages_to_install\\cq-6.3.0-hotfix-19148-1.0.zip")
+.addPackage("D:\\packages_to_install\\Content_auth_PROD_CRQ000000639702.zip")
+.addPackage("D:\\packages_to_install\\Content_auth_PROD_CRQ000000639702_2.zip")
+.addPackage("D:\\packages_to_install\\permissions.zip")
+.addPackage("D:\\packages_to_install\\nprd_userGroups.zip");
+//cloud service bug in the current content package - remove property
+DeletePropertyCommand dpc = new DeletePropertyCommand("/content/www-telenet-be/jcr:content","cq:cloudserviceconfigs");
+cc.add(dpc);
+//dpc.execute();
+cc.execute();
+System.out.println("Restart author so all bundles are installed. You might have to start bundles manually.");
+					</code>
+            </pre>
+        </section>
 
         <section>Slide 2</section>
     </div>
