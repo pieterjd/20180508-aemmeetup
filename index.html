@@ -36,6 +36,44 @@
             </p>
 
         </section>
+        <section>
+            <section>
+                <h1>Point & Click</h1>
+                <ol>
+                    <li>Update property</li>
+                    <li>Add node</li>
+                    <li>Install content package</li>
+                </ol>
+            </section>
+            <section>
+                <h1>Stumbled on ...</h1>
+                <img src="./images/curlCheatSheet01.png" width="30%"/>
+                <img src="./images/curlCheatSheet02.png" width="40%"/>
+                <img src="./images/curlCheatSheet03.png" width="40%"/>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>First attempt</h1>
+                <pre>
+                <code class="hljs" data-trim contenteditable>
+                    Get-Content | Output-File
+                </code>
+                </pre>
+            </section>
+            <section>
+                <h1>Downside</h1>
+                I'm actually looking for something
+                <ul>
+                    <li>Testable</li>
+                    <li>Lightweight</li>
+                    <li>Easy & consistent syntax</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section></section>
+        </section>
         <section>Who is this guy?
             <p>
                 <svg id="svg-knuckles" viewBox="0 0 100 61" width="40%" height="40%">
@@ -107,8 +145,8 @@ System.out.println("Restart author so all bundles are installed. You might have 
             {src: 'plugin/notes/notes.js', async: true},
             {
                 src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-                hljs.initHighlightingOnLoad();
-            }
+                    hljs.initHighlightingOnLoad();
+                }
             }
         ]
     });
