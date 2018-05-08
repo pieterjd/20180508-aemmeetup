@@ -160,7 +160,7 @@ cc.execute();
                 </pre>
                 <aside class="notes">
                 While developing a new feature, 2 properties needed to be added on 2 different paths. This for 3 segments,
-                    3 languages on 2 instances for 4 environments. This adds up to 3*3*2*4 = 72 properties.
+                    3 languages on 2 instances for 4 environments. This adds up to 2*3*3*2*4 = 144 properties.
                 </aside>
             </section>
         </section>
@@ -178,6 +178,8 @@ cc.execute();
 public QueryCommand addCondition(String key,String value)
 public QueryCommand setHitLimit(int limit)
 public QueryCommand fullHit()
+public QueryCommand propertyExists(String prefix,
+  String propertyName)
 public int getResults()
 public int getTotal()
 public boolean hasMore()
@@ -186,7 +188,7 @@ public boolean hasMore()
                 <aside class="notes">
                     <p>
                 The QueryCommand class has mainly helper functions, such as add condition, set the hitlimit (defaults to 10),
-                    retrieve full hits. Once executed, you can check the total hits and when using pagination is there is more data.
+                    retrieve full hits and shortcut to check if a property exists on a node. Once executed, you can check the total hits and when using pagination is there is more data.
                     </p><p>
                     I needed this when working on the orion project. The online team wanted to know how many OOTB text components were used.
                     They wanted some special features hence requiring the change the resource type of 250 nodes.
