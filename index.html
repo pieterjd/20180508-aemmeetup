@@ -119,7 +119,7 @@ function deletePage{
         </section>
         <section>
             <section>
-            <h1>Adding properties</h1>
+            <h2>Adding properties</h2>
             </section>
             <section>
                 <pre>
@@ -146,8 +146,8 @@ cc.execute();
         </section>
         <section>
             <section>
-                <h1>Query Command</h1>
-                add image of querydebugger
+                <h2>Query Command</h2>
+                <img src="images/querydebugger.png"/>
             </section>
             <section>
                 <pre>
@@ -164,11 +164,11 @@ public boolean hasMore()
         </section>
         <section>
             <section>
-            <h1>PostProcess</h1>
+            <h2>PostProcess</h2>
             </section>
             <section>
 
-                <pre>
+                <pre style="height: 547px; width: 960px;">
                 <code class="hljs" data-trim contenteditable>
 /**
 * Queries return JSON with an array called hits. This method will process one element of this array
@@ -179,7 +179,7 @@ public abstract void postProcessOneResult(JSONObject hit);
                 </pre>
             </section>
             <section>
-                <h1>Define query</h1>
+                <h2>Define query</h2>
                 <pre>
                 <code class="hljs" data-trim contenteditable>
 public WorkflowInstancesQueryCommand(String status){
@@ -210,7 +210,7 @@ public WorkflowInstancesQueryCommand(String status){
                  </pre>
             </section>
             <section>
-                <h1>Loop over hits</h1>
+                <h2>Loop over hits</h2>
                 <pre>
                 <code class="hljs" data-trim contenteditable>
 public class DifferentStatusValuesCommand extends QueryPostProcessCommand<WorkflowInstancesQueryCommand> {
