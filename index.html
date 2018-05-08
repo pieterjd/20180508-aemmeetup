@@ -33,9 +33,17 @@
             <p>
                 <small>Pieter-Jan Drouillon</small>
                 <br/>
-                <small>Agile Developer @ Design Is Dead</small>
+                <small>AEM Developer Meetup NL - May 8, 2018</small>
             </p>
 
+        </section>
+        <section>
+            <h1>About me</h1>
+            <ul style="list-style-type: none">
+                <li><i class="fas fa-graduation-cap"></i> Academic background</li>
+                <li><i class="fas fa-link"></i> Short-lived career in Supply Chain</li>
+                <li><i class="fab fa-java"></i> Full-stack developer @ Design Is Dead</li>
+            </ul>
         </section>
         <section>
             <section>
@@ -106,7 +114,7 @@ function deletePage{
                 </ul>
             </section>
             <section>
-                <h1>Easy & consistent syntax</h1>
+                <h1>Easy & consistent</h1>
                 <ul>
                     <li>Naming convention</li>
                     <li>Method chaining</li>
@@ -155,7 +163,7 @@ public boolean hasMore()
             </pre>
             </section>
             <section>
-            <h1>PostProcess</h1>
+                <h1>PostProcess</h1>
                 <pre>
                 <code class="hljs" data-trim contenteditable>
 /**
@@ -166,6 +174,111 @@ public abstract void postProcessOneResult(JSONObject hit);
                 </code>
                 </pre>
             </section>
+            <section>
+                <h1>Define query</h1>
+                <pre>
+                <code class="hljs" data-trim contenteditable>
+public WorkflowInstancesQueryCommand(String status){
+    addCondition("path","/etc/workflow/instances/server0");
+    addCondition("p.hits","full");
+    addCondition("orderby","endTime");
+    if(status != null){
+        addCondition("1_property","status");
+        addCondition("1_value",status);
+    }
+    else{
+        propertyExists("1_","status");
+    }
+    public String getOldestEndTime(){
+        String result = null;
+        JSONArray hits = getQueryResult().getJSONArray("hits");
+        if(hits.length()>0){
+            JSONObject hit = hits.getJSONObject(0);
+            if(hit.has("endTime")){
+                result = hit.getString("endTime");
+                result += " path: "+hit.getString("jcr:path");
+            }
+        }
+        return result;
+    }
+}
+                </code>
+                 </pre>
+            </section>
+            <section>
+                <h1>Loop over hits</h1>
+                <pre>
+                <code class="hljs" data-trim contenteditable>
+public class DifferentStatusValuesCommand extends QueryPostProcessCommand<WorkflowInstancesQueryCommand> {
+    private Set<String> statuses;
+    public DifferentStatusValuesCommand(WorkflowInstancesQueryCommand command) {
+    super(command);
+    statuses = new HashSet<>();
+    }
+    @Override
+    public void postProcessOneResult(JSONObject hit) {
+    statuses.add(hit.getString("status"));
+    }
+
+    public Set<String> getStatuses() {
+        return statuses;
+    }
+}
+                        </code>
+                </pre>
+            </section>
+            <section>
+                <h1>Instance install</h1>
+                image eDev confluence
+            </section>
+            <section>
+                <pre>
+                <code class="hljs" data-trim contenteditable>
+CompositeCommand cc = new CompositeCommand();
+//Enable crx/de
+EnableCrxCommand ecc = new EnableCrxCommand();
+cc.add(ecc);
+BulkPackageInstallCommand bpic = new BulkPackageInstallCommand();
+//One off packages for a fresh install
+bpic.addPackage("D:\\packages_to_install\\acs-aem-commons-content-3.13.0-min.zip")
+.addPackage("D:\\packages_to_install\\acs-aem-tools-content-0.0.50-min.zip")
+.addPackage("D:\\packages_to_install\\AEM-6.3-Service-Pack-1-6.3.1.zip")
+.addPackage("D:\\packages_to_install\\cq-6.3.0-hotfix-19148-1.0.zip")
+.addPackage("D:\\packages_to_install\\Content_auth_PROD_CRQ000000639702.zip")
+.addPackage("D:\\packages_to_install\\Content_auth_PROD_CRQ000000639702_2.zip")
+.addPackage("D:\\packages_to_install\\permissions.zip")
+.addPackage("D:\\packages_to_install\\nprd_userGroups.zip");
+//install the Java code
+String version ="18.16.0-SNAPSHOT";
+bpic.addPackage("C:\\_dev\\git\\telenet\\tcp.upc-generic\\app\\target/upc-generic.jar")
+.addPackage(String.format("C:\\_dev\\git\\telenet\\tcp.upc-generic\\core\\target/upc-generic-core-%s.jar",version));
+cc.add(bpic);
+DeletePropertyCommand dpc = new DeletePropertyCommand("/content/www-telenet-be/jcr:content","cq:cloudserviceconfigs");
+cc.add(dpc);
+cc.execute();
+System.out.println("Restart instance so all bundles are installed. You might have to start bundles manually.");
+                </code>
+                </pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>Other features</h1>
+                <ul>
+                    <li>Instance config via cmdline property</li>
+                    <li>fat jar</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h1>Conclusion</h1>
+            <ul>
+                <li>Reduce point & click monkeywork</li>
+                <li>Testable</li>
+                <li>Lightweight</li>
+                <li>Easy</li>
+            </ul>
+            <p>Available on <a href="http://github.com/pieterjd/aemadmin"><i class="fab fa-github"></i></a> </p>
         </section>
         <section>Who is this guy?
             <p>
