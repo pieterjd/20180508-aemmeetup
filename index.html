@@ -77,17 +77,14 @@
             <section>
                 <pre>
                 <code class="hljs" data-trim contenteditable>
-function setProperty{
-    param([int]$port=4502,[string]$server="http://localhost",[string]$path,[string] $property,[string]$value)
-
-    $cmd = "curl.exe -u admin:admin -X POST --data $($property)=$($value) $($server):$($port)$($path)"
-    return Invoke-Expression $cmd
-}
-
-function deletePage{
-    param([int]$port=4502,[string]$path,[string]$name)
-    Write-Host "deleting " $path+'/'+$name
-    $cmd = 'curl.exe -X DELETE -u admin:admin -F"jcr:primaryType=cq:Page" http://localhost:'+$port+$path+'/'+$name
+function createPage{
+    param([int]$port=4502,[string]$path,[string]$name,[string]$title,[string]$resourceType='kpngb-whitelabel/components/page/contentpage',[string]$template='/apps/kpngb-whitelabel/templates/contentpage',[switch]$deleteFirst,[switch]$verbose){
+    if($deleteFirst){
+        deletePage -port $port -path $path -name $name
+    }
+    $cmd = 'curl.exe -u admin:admin -F"jcr:primaryType=cq:Page" http://localhost:'+$port+$path+'/'+$name
+    Invoke-Expression $cmd
+    $cmd = 'curl.exe -u admin:admin -F"jcr:primaryType=cq:PageContent" -F"cq:template='+$template+'" -F"sling:resourceType='+$resourceType+'" -F"jcr:title='+$title+'" http://localhost:'+$port+$path+'/'+$name+'/jcr:content'
     Invoke-Expression $cmd
 }
                 </code>
