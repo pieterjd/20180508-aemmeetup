@@ -56,12 +56,18 @@
                     <li>Add node</li>
                     <li>Install content package</li>
                 </ol>
+                <aside class="notes">
+                    Common tasks when doing development or release work
+                </aside>
             </section>
             <section>
                 <h1>Stumbled on ...</h1>
                 <img src="./images/curlCheatSheet01.png" width="30%"/>
                 <img src="./images/curlCheatSheet02.png" width="40%"/>
                 <img src="./images/curlCheatSheet03.png" width="40%"/>
+                <aside class="notes">
+                    The usual suspects show up: sling post servlet, cheat sheets, ...
+                </aside>
             </section>
         </section>
         <section>
@@ -86,6 +92,11 @@ function deletePage{
 }
                 </code>
                 </pre>
+                <aside class="notes">
+                    While preparing for AEM developer certification exam, I got tired of clicking around for creating pages, ...
+                    So I clubbed together this powershell script.
+                Eventhough Powershell is my favorite script, it has its limits in this context.
+                </aside>
             </section>
             <section>
                 <h1>Downside</h1>
@@ -141,12 +152,19 @@ for(String lang:base_languages){
 cc.execute();
                 </code>
                 </pre>
+                <aside class="notes">
+                While developing a new feature, 2 properties needed to be added on 2 different paths. This for 3 segments,
+                    3 languages on 2 instances for 4 environments. This adds up to 3*3*2*4 = 72 properties.
+                </aside>
             </section>
         </section>
         <section>
             <section>
                 <h2>Query Command</h2>
                 <img src="images/querydebugger.png"/>
+                <aside class="notes">
+                Querying happens a lot while investigating stuff. I usually resort to the query debugger.
+                </aside>
             </section>
             <section>
                 <pre>
@@ -159,11 +177,18 @@ public int getTotal()
 public boolean hasMore()
                 </code>
             </pre>
+                <aside class="notes">
+                The QueryCommand class has mainly helper functions, such as add condition, set the hitlimit (defaults to 10),
+                    retrieve full hits. Once executed, you can check the total hits and when using pagination is there is more data.
+                </aside>
             </section>
         </section>
         <section>
             <section>
             <h2>PostProcess</h2>
+                <aside class="notes">
+                    TYpically for querying, you want to do something with each result row. That's where PostProcess comes into play.
+                </aside>
             </section>
             <section>
 
@@ -176,6 +201,9 @@ public boolean hasMore()
 public abstract void postProcessOneResult(JSONObject hit);
                 </code>
                 </pre>
+                <aside class="notes">
+All you need to do is implement this abstract method.
+                </aside>
             </section>
             <section>
                 <h2>Define query</h2>
@@ -192,21 +220,13 @@ public WorkflowInstancesQueryCommand(String status){
     else{
         propertyExists("1_","status");
     }
-    public String getOldestEndTime(){
-        String result = null;
-        JSONArray hits = getQueryResult().getJSONArray("hits");
-        if(hits.length()>0){
-            JSONObject hit = hits.getJSONObject(0);
-            if(hit.has("endTime")){
-                result = hit.getString("endTime");
-                result += " path: "+hit.getString("jcr:path");
-            }
-        }
-        return result;
-    }
 }
                 </code>
                  </pre>
+                <aside class="notes">
+In this example, I had to check the state of the workflow instances. Main goal was  to verify that  completed instances
+                    were purged.
+                </aside>
             </section>
             <section>
                 <h2>Loop over hits</h2>
@@ -229,12 +249,18 @@ public class DifferentStatusValuesCommand extends QueryPostProcessCommand<Workfl
 }
                         </code>
                 </pre>
+                <aside class="notes">
+In this first step, I wanted to see what the different values were for state.
+                </aside>
             </section>
         </section>
         <section>
             <section>
                 <h1>Instance install</h1>
                 image eDev confluence
+                <aside class="notes">
+While working on the Telenet project, there were a lot of steps involved to setup your local environment.
+                </aside>
             </section>
             <section>
                 <pre>
