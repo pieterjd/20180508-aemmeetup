@@ -96,10 +96,10 @@ function createPage{
                 </aside>
             </section>
             <section>
-                <h1>Downside</h1>
+                <h1>Pros / Cons</h1>
                 <ul style="list-style-type: none">
+                    <li><i class="far fa-check-circle"></i> Lightweight</li>
                     <li><i class="far fa-times-circle"></i> Testable</li>
-                    <li><i class="far fa-times-circle"></i> Lightweight</li>
                     <li><i class="far fa-times-circle"></i> Easy & consistent syntax</li>
                 </ul>
             </section>
@@ -175,8 +175,14 @@ public boolean hasMore()
                 </code>
             </pre>
                 <aside class="notes">
+                    <p>
                 The QueryCommand class has mainly helper functions, such as add condition, set the hitlimit (defaults to 10),
                     retrieve full hits. Once executed, you can check the total hits and when using pagination is there is more data.
+                    </p><p>
+                    I needed this when working on the orion project. The online team wanted to know how many OOTB text components were used.
+                    They wanted some special features hence requiring the change the resource type of 250 nodes.
+                </p>
+                    <p>obviously, they didn't want to update all these nodes manually ...</p>
                 </aside>
             </section>
         </section>
@@ -184,7 +190,8 @@ public boolean hasMore()
             <section>
             <h2>PostProcess</h2>
                 <aside class="notes">
-                    TYpically for querying, you want to do something with each result row. That's where PostProcess comes into play.
+                    <p>So we need some postprocessing</p>
+
                 </aside>
             </section>
             <section>
@@ -221,8 +228,8 @@ public WorkflowInstancesQueryCommand(String status){
                 </code>
                  </pre>
                 <aside class="notes">
-In this example, I had to check the state of the workflow instances. Main goal was  to verify that  completed instances
-                    were purged.
+In this different example, I had to check the state of the workflow instances. Main goal was  to verify that  completed instances
+                    were purged. Idea was to query all available instances, and check the state property.
                 </aside>
             </section>
             <section>
