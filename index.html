@@ -58,7 +58,19 @@
                 <h1>First attempt</h1>
                 <pre>
                 <code class="hljs" data-trim contenteditable>
-                    Get-Content | Output-File
+function setProperty{
+    param([int]$port=4502,[string]$server="http://localhost",[string]$path,[string] $property,[string]$value)
+
+    $cmd = "curl.exe -u admin:admin -X POST --data $($property)=$($value) $($server):$($port)$($path)"
+    return Invoke-Expression $cmd
+}
+
+function deletePage{
+    param([int]$port=4502,[string]$path,[string]$name)
+    Write-Host "deleting " $path+'/'+$name
+    $cmd = 'curl.exe -X DELETE -u admin:admin -F"jcr:primaryType=cq:Page" http://localhost:'+$port+$path+'/'+$name
+    Invoke-Expression $cmd
+}
                 </code>
                 </pre>
             </section>
@@ -79,6 +91,25 @@
                     <li><i class="fas fa-check"></i> Testable</li>
                     <li><i class="fas fa-check"></i> Lightweight</li>
                     <li><i class="fas fa-check"></i> Easy & consistent syntax</li>
+                </ul>
+            </section>
+            <section>
+                <h1>Testable</h1>
+                Junit & Mockito
+            </section>
+            <section>
+                <h1>Lightweight</h1>
+                <ul>
+                    <li>Apache HttpClient</li>
+                    <li>Commons Lang</li>
+                    <li>com.github.tsohr:json</li>
+                </ul>
+            </section>
+            <section>
+                <h1>Easy & consistent syntax</h1>
+                <ul>
+                    <li>Naming convention</li>
+                    <li>Method chaining</li>
                 </ul>
             </section>
         </section>
