@@ -113,6 +113,60 @@ function deletePage{
                 </ul>
             </section>
         </section>
+        <section>
+            <section>
+                <h1>Examples</h1>
+            </section>
+            <section>
+                <h1>Adding properties</h1>
+                <pre>
+                <code class="hljs" data-trim contenteditable>
+CompositeCommand cc = new CompositeCommand();
+//base website
+String[] base_languages = {"nl","fr","en"};
+String[] base_segments = {"retail","soho","sme"};
+for(String lang:base_languages){
+    for(String segment:base_segments){
+        String path = String.format("/content/kpngb-base/%s/%s/sales-checkout/jcr:content",lang,segment);
+        SetPropertyCommand spc = new SetPropertyCommand(path,"enableOnlineSales","True","Boolean");
+        cc.add(spc);
+
+        path = String.format("/content/kpngb-base/%s/%s/sales-registration/jcr:content",lang,segment);
+        spc = new SetPropertyCommand(path,"enableOnlineSales","True","Boolean");
+        cc.add(spc);
+    }
+}
+cc.execute();
+                </code>
+                </pre>
+            </section>
+            <section>
+                <h1>Query Command</h1>
+                add image of querydebugger
+                <pre>
+                <code class="hljs" data-trim contenteditable>
+public QueryCommand addCondition(String key,String value)
+public QueryCommand setHitLimit(int limit)
+public QueryCommand fullHit()
+public int getResults()
+public int getTotal()
+public boolean hasMore()
+                </code>
+            </pre>
+            </section>
+            <section>
+            <h1>PostProcess</h1>
+                <pre>
+                <code class="hljs" data-trim contenteditable>
+/**
+* Queries return JSON with an array called hits. This method will process one element of this array
+* @param hit the result to process
+*/
+public abstract void postProcessOneResult(JSONObject hit);
+                </code>
+                </pre>
+            </section>
+        </section>
         <section>Who is this guy?
             <p>
                 <svg id="svg-knuckles" viewBox="0 0 100 61" width="40%" height="40%">
@@ -186,8 +240,8 @@ System.out.println("Restart author so all bundles are installed. You might have 
             {src: 'plugin/notes/notes.js', async: true},
             {
                 src: 'plugin/highlight/highlight.js', async: true, callback: function () {
-                    hljs.initHighlightingOnLoad();
-                }
+                hljs.initHighlightingOnLoad();
+            }
             }
         ]
     });
