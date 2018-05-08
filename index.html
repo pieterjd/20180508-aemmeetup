@@ -89,11 +89,10 @@ function deletePage{
             </section>
             <section>
                 <h1>Downside</h1>
-                I'm actually looking for something
-                <ul>
-                    <li>Testable</li>
-                    <li>Lightweight</li>
-                    <li>Easy & consistent syntax</li>
+                <ul style="list-style-type: none">
+                    <li><i class="far fa-times-circle"></i> Testable</li>
+                    <li><i class="far fa-times-circle"></i> Lightweight</li>
+                    <li><i class="far fa-times-circle"></i> Easy & consistent syntax</li>
                 </ul>
             </section>
         </section>
@@ -339,6 +338,11 @@ System.out.println("Restart author so all bundles are installed. You might have 
             {src: 'plugin/markdown/marked.js'},
             {src: 'plugin/markdown/markdown.js'},
             {src: 'plugin/notes/notes.js', async: true},
+            // Zoom in and out with Alt+click
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+
+            // Speaker notes
+            { src: 'plugin/notes/notes.js', async: true },
             {
                 src: 'plugin/highlight/highlight.js', async: true, callback: function () {
                 hljs.initHighlightingOnLoad();
